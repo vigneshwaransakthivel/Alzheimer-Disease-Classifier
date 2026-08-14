@@ -1,4 +1,4 @@
-NeuroVision AI
+# NeuroVision AI
 
 **Deep Learning for Alzheimer's Disease Classification from Brain MRI Images**
 
@@ -8,221 +8,204 @@ NeuroVision AI
 
 ---
 
-> **📥 Note:** The trained model file is hosted separately due to size constraints. [Download here](https://drive.google.com/drive/folders/1kEMJwnUIE7o01MtlFGrfA9owV7ApgMhs?usp=sharing) or train your own. See [Download Pre-trained Model](#-download-pre-trained-model) section.
+> **Note:** The trained model file is hosted separately due to size constraints. Download it from Google Drive or train your own model. See the "Download Pre-trained Model" section below.
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Dataset](#dataset)
-- [Training](#training)
-- [Running the Application](#running-the-application)
-- [Model Architecture](#model-architecture)
-- [Evaluation Metrics](#evaluation-metrics)
-- [Explainable AI](#explainable-ai)
-- [Results](#results)
-- [Disclaimer](#disclaimer)
+* Overview
+* Features
+* Project Structure
+* Installation
+* Dataset
+* Training
+* Running the Application
+* Model Architecture
+* Evaluation Metrics
+* Explainable AI
+* Results
+* Disclaimer
 
 ---
 
-## 🎯 Overview
+## Overview
 
 NeuroVision AI is a deep learning system that classifies brain MRI scans into four stages of Alzheimer's disease:
 
-1. **Non Demented** - No signs of dementia
-2. **Very Mild Demented** - Early stage cognitive decline
-3. **Mild Demented** - Moderate cognitive impairment
-4. **Moderate Demented** - Significant cognitive impairment
+1. Non Demented — No signs of dementia
+2. Very Mild Demented — Early-stage cognitive decline
+3. Mild Demented — Moderate cognitive impairment
+4. Moderate Demented — Significant cognitive impairment
 
-The system uses a **ResNet50** architecture with transfer learning and provides **Grad-CAM visualizations** to explain predictions.
-
----
-
-## ✨ Features
-
-- 🔬 **State-of-the-art CNN Architecture** - ResNet50 with transfer learning
-- 🎨 **Interactive Web Interface** - Streamlit-based application for easy use
-- 📊 **Comprehensive Metrics** - Accuracy, Precision, Recall, F1, MCC, ROC-AUC
-- 🔍 **Explainable AI** - Grad-CAM heatmaps showing which brain regions influenced predictions
-- ⚡ **Mixed Precision Training** - Faster training with automatic mixed precision (AMP)
-- 💾 **Automatic Checkpointing** - Saves best model based on validation F1 score
-- 📈 **Training Logs** - Detailed CSV logs for experiment tracking
+The system uses a ResNet50 architecture with transfer learning and provides Grad-CAM visualizations to explain predictions.
 
 ---
 
-## 📁 Project Structure
+## Features
 
-```
+* ResNet50-based deep learning model with transfer learning
+* Interactive Streamlit web application
+* Comprehensive evaluation metrics
+* Grad-CAM visual explanations
+* Mixed Precision Training (AMP)
+* Automatic model checkpointing
+* Experiment tracking and training logs
+
+---
+
+## Project Structure
+
+```text
 Alzheimer_prediction-main/
 ├── app/
-│   ├── streamlit_app.py          # Interactive web application
-│   ├── inference.py               # Model loading and prediction
+│   ├── streamlit_app.py
+│   ├── inference.py
 │   └── __init__.py
 ├── configs/
-│   ├── config.py                  # Central configuration file
+│   ├── config.py
 │   └── __init__.py
 ├── dataset/
-│   ├── raw/combined_images/       # Raw MRI images by class
-│   └── split/                     # Train/val/test splits (created during training)
+│   ├── raw/combined_images/
+│   └── split/
 ├── models/
-│   ├── resnet50.py                # ResNet50 architecture
+│   ├── resnet50.py
 │   └── __init__.py
 ├── src/
-│   ├── train.py                   # Main training script
-│   ├── engine.py                  # Training and validation loops
-│   ├── dataset.py                 # Custom PyTorch Dataset
-│   ├── dataloader.py              # Data loading utilities
-│   ├── metrics.py                 # Evaluation metrics
-│   ├── gradcam.py                 # Grad-CAM implementation
-│   ├── losses.py                  # Loss functions
-│   ├── optimizer.py               # Optimizer configuration
-│   ├── scheduler.py               # Learning rate scheduler
-│   ├── checkpoint.py              # Model checkpoint utilities
-│   ├── logger.py                  # Training logger
-│   ├── preprocess.py              # Data preprocessing
-│   ├── split_dataset.py           # Dataset splitting utility
-│   ├── evaluate.py                # Model evaluation script
-│   ├── visualization.py           # Plotting utilities
-│   └── utils.py                   # Helper functions
+│   ├── train.py
+│   ├── engine.py
+│   ├── dataset.py
+│   ├── dataloader.py
+│   ├── metrics.py
+│   ├── gradcam.py
+│   ├── losses.py
+│   ├── optimizer.py
+│   ├── scheduler.py
+│   ├── checkpoint.py
+│   ├── logger.py
+│   ├── preprocess.py
+│   ├── split_dataset.py
+│   ├── evaluate.py
+│   ├── visualization.py
+│   └── utils.py
 ├── notebooks/
-│   └── 01_EDA.ipynb               # Exploratory data analysis
-├── outputs/                       # Created during training
-│   ├── checkpoints/               # Model checkpoints
-│   ├── logs/                      # Training logs
-│   └── plots/                     # Visualization plots
-├── requirements.txt               # Python dependencies
-└── README.md                      # This file
+│   └── 01_EDA.ipynb
+├── outputs/
+│   ├── checkpoints/
+│   ├── logs/
+│   └── plots/
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 
-- Python 3.8 or higher
-- NVIDIA GPU with CUDA support (recommended for training)
-- 8GB+ RAM
-- 10GB+ disk space for dataset and models
+* Python 3.8 or higher
+* NVIDIA GPU with CUDA support (recommended)
+* 8GB or more RAM
+* 10GB or more available storage
 
-### Step 1: Clone the Repository
+### Clone the Repository
 
 ```bash
 cd Alzheimer_prediction-main
 ```
 
-### Step 2: Create Virtual Environment (Optional but Recommended)
+### Create a Virtual Environment
 
 ```bash
-# Using venv
 python -m venv venv
 
-# Activate on Windows
+# Windows
 venv\Scripts\activate
 
-# Activate on Linux/Mac
+# Linux / macOS
 source venv/bin/activate
 ```
 
-### Step 3: Install Dependencies
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 4: Verify Installation
+### Verify Installation
 
 ```bash
 python models/resnet50.py
 ```
 
-If successful, you should see the model summary and a confirmation message.
+---
+
+## Download Pre-trained Model
+
+The trained model (`best_model.pth`, approximately 100 MB) is not included in the repository because of GitHub file-size limits.
+
+### Option 1: Use the Pre-trained Model
+
+1. Download `best_model.pth` from the provided Google Drive folder.
+2. Place it in:
+
+```text
+outputs/checkpoints/best_model.pth
+```
+
+3. Launch the application.
+
+### Option 2: Train the Model Yourself
+
+Requirements:
+
+* NVIDIA GPU recommended
+* Approximately 2.5–3 hours training time on RTX 3050
+
+Follow the training instructions below.
 
 ---
 
-## � **Download Pre-trained Model**
-
-**⚠️ IMPORTANT:** The trained model file (`best_model.pth`, ~100MB) is **not included** in this repository due to GitHub's 100MB file size limit.
-
-### **Option 1: Use Pre-trained Model** ⭐ Recommended
-
-1. **Download the trained model:**
-   - [📥 Google Drive - NeuroVision AI Model](https://drive.google.com/drive/folders/1kEMJwnUIE7o01MtlFGrfA9owV7ApgMhs?usp=sharing) (~100MB)
-   - Download `best_model.pth` from the folder
-   
-2. **Place the file in the correct location:**
-   ```
-   outputs/checkpoints/best_model.pth
-   ```
-
-3. **Skip to [Running the Application](#running-the-application)**
-
-### **Option 2: Train Your Own Model**
-
-If you prefer to train from scratch:
-- **Requirements:** NVIDIA GPU with CUDA support (recommended)
-- **Training time:** ~2.5-3 hours with RTX 3050
-- **Instructions:** See [Training](#training) section below
-
-**Then you can proceed to use the application!**
-
----
-
-## �📊 Dataset
+## Dataset
 
 ### Dataset Structure
 
-Organize your MRI images in the following structure:
-
-```
+```text
 dataset/raw/combined_images/
 ├── NonDemented/
-│   ├── image1.jpg
-│   ├── image2.jpg
-│   └── ...
 ├── VeryMildDemented/
-│   ├── image1.jpg
-│   └── ...
 ├── MildDemented/
-│   ├── image1.jpg
-│   └── ...
 └── ModerateDemented/
-    ├── image1.jpg
-    └── ...
 ```
 
-### Preparing the Dataset
-
-Before training, split the dataset into train/validation/test sets:
+### Split the Dataset
 
 ```bash
 python src/split_dataset.py
 ```
 
-This will create:
-- `dataset/split/train/` (70% of data)
-- `dataset/split/val/` (15% of data)
-- `dataset/split/test/` (15% of data)
+Generated splits:
+
+* Train: 70%
+* Validation: 15%
+* Test: 15%
 
 ---
 
-## 🏋️ Training
+## Training
 
 ### Configuration
 
-Edit `configs/config.py` to adjust hyperparameters:
+Modify hyperparameters in `configs/config.py`:
 
 ```python
-IMAGE_SIZE = 224          # Input image size
-NUM_CLASSES = 4           # Number of disease stages
-BATCH_SIZE = 32           # Batch size for training
-EPOCHS = 30               # Number of training epochs
-LEARNING_RATE = 1e-4      # Initial learning rate
-WEIGHT_DECAY = 1e-4       # L2 regularization
+IMAGE_SIZE = 224
+NUM_CLASSES = 4
+BATCH_SIZE = 32
+EPOCHS = 30
+LEARNING_RATE = 1e-4
+WEIGHT_DECAY = 1e-4
 ```
 
 ### Start Training
@@ -233,253 +216,235 @@ python src/train.py
 
 ### Training Features
 
-- **Automatic Mixed Precision (AMP)** - Faster training on CUDA GPUs
-- **Learning Rate Scheduling** - Reduces LR on validation loss plateau
-- **Best Model Saving** - Automatically saves model with best validation F1 score
-- **Progress Bars** - Real-time training progress with tqdm
-- **Comprehensive Logging** - Saves all metrics to CSV files
-
-### Monitoring Training
-
-Training logs are saved to `outputs/logs/` with filenames like:
-```
-experiment_ResNet50_bs32_lr0.0001_YYYYMMDD_HHMMSS.csv
-```
-
-Each log contains:
-- Epoch number
-- Training and validation loss
-- Accuracy, Precision, Recall, F1, MCC
-- ROC-AUC score
-- Learning rate
-- GPU memory usage
-- Training time per epoch
+* Automatic Mixed Precision (AMP)
+* Learning Rate Scheduling
+* Best Model Saving
+* Progress Monitoring
+* CSV-based Logging
 
 ---
 
-## 🖥️ Running the Application
+## Running the Application
 
-### Prerequisites
-
-You need a trained model checkpoint at `outputs/checkpoints/best_model.pth`
-
-### Launch the Streamlit App
+### Launch Streamlit
 
 ```bash
 streamlit run app/streamlit_app.py
 ```
 
-The application will open in your web browser at `http://localhost:8501`
+Application URL:
 
-### Using the Application
+```text
+http://localhost:8501
+```
 
-1. **Upload an MRI Image** - Click "Browse files" and select a brain MRI (JPG, JPEG, or PNG)
-2. **View Prediction** - The model will classify the image into one of 4 stages
-3. **Check Confidence** - See the prediction confidence percentage
-4. **Explore Probabilities** - View probability distribution across all classes
-5. **Examine Grad-CAM** - See which brain regions influenced the prediction
+### Usage
+
+1. Upload an MRI image.
+2. View predicted Alzheimer's stage.
+3. Review confidence scores.
+4. Examine class probabilities.
+5. Analyze Grad-CAM visualizations.
 
 ---
 
-## 🧬 Model Architecture
+## Model Architecture
 
 ### ResNet50 with Transfer Learning
 
-- **Backbone**: ResNet50 pre-trained on ImageNet
-- **Input**: 224×224×3 RGB images
-- **Output**: 4-class probability distribution
-- **Total Parameters**: ~25 million
-- **Trainable Parameters**: ~25 million (full fine-tuning)
+* Backbone: ResNet50 pretrained on ImageNet
+* Input Size: 224 × 224 × 3
+* Output Classes: 4
+* Parameters: ~25 Million
 
-### Architecture Details
+### Architecture
 
-```
+```text
 Input (224×224×3)
     ↓
-ResNet50 Backbone (pre-trained)
-    ├── Conv1 → BN → ReLU → MaxPool
-    ├── Layer1 (3 residual blocks)
-    ├── Layer2 (4 residual blocks)
-    ├── Layer3 (6 residual blocks)
-    └── Layer4 (3 residual blocks)
+ResNet50 Backbone
     ↓
 Global Average Pooling
     ↓
-Fully Connected (2048 → 4)
+Fully Connected Layer (2048 → 4)
     ↓
-Output (4 logits)
+Output Probabilities
 ```
 
-### Transfer Learning Strategy
+### Transfer Learning Workflow
 
-The model uses **transfer learning** to leverage features learned from ImageNet:
-1. Load pre-trained ResNet50 weights
-2. Replace final classification layer (1000 → 4 classes)
-3. Fine-tune entire network on Alzheimer's MRI dataset
-
----
-
-## 📈 Evaluation Metrics
-
-The model is evaluated using multiple metrics to ensure robust performance:
-
-### Classification Metrics
-
-- **Accuracy** - Overall classification accuracy
-- **Balanced Accuracy** - Accounts for class imbalance
-- **Precision** - Positive predictive value (weighted average)
-- **Recall** - Sensitivity (weighted average)
-- **F1 Score** - Harmonic mean of precision and recall
-- **Matthews Correlation Coefficient (MCC)** - Balanced measure for imbalanced datasets
-- **ROC-AUC** - Area under the receiver operating characteristic curve (one-vs-rest)
-
-### Confusion Matrix
-
-The confusion matrix shows the distribution of predictions vs. ground truth across all four classes.
+1. Load ImageNet pretrained ResNet50 weights.
+2. Replace final classification layer.
+3. Fine-tune on Alzheimer's MRI data.
 
 ---
 
-## 🔍 Explainable AI
+## Evaluation Metrics
 
-### Grad-CAM (Gradient-weighted Class Activation Mapping)
+The model is evaluated using:
 
-NeuroVision AI uses **Grad-CAM** to provide visual explanations for predictions:
+* Accuracy
+* Balanced Accuracy
+* Precision
+* Recall
+* F1 Score
+* Matthews Correlation Coefficient (MCC)
+* ROC-AUC
 
-- **What it does**: Highlights regions of the brain MRI that most influenced the model's decision
-- **How it works**: Uses gradients flowing into the final convolutional layer to create a heatmap
-- **Why it matters**: Increases transparency and trust in AI predictions, especially critical for medical applications
-
-### Interpreting Grad-CAM
-
-- **Red/Yellow regions** - Areas that strongly influenced the prediction
-- **Blue/Green regions** - Areas with less influence
-- **Clinical relevance** - Helps verify the model is focusing on medically relevant brain structures
+A confusion matrix and class-wise evaluation are also generated.
 
 ---
 
-## 📊 Results
+## Explainable AI
+
+### Grad-CAM
+
+Grad-CAM highlights image regions that influenced model predictions.
+
+Benefits:
+
+* Improves model interpretability
+* Supports visual validation
+* Increases transparency in medical AI systems
+
+### Interpretation
+
+* Red/Yellow: High influence
+* Blue/Green: Low influence
+
+---
+
+## Results
 
 ### Expected Performance
 
-With proper training on a balanced dataset, you should expect:
+Typical results on a balanced dataset:
 
-- **Validation Accuracy**: 85-95%
-- **Validation F1 Score**: 0.85-0.95
-- **ROC-AUC**: 0.90-0.98
+| Metric   | Range     |
+| -------- | --------- |
+| Accuracy | 85–95%    |
+| F1 Score | 0.85–0.95 |
+| ROC-AUC  | 0.90–0.98 |
 
-*Note: Actual performance depends on dataset quality, size, and class balance.*
-
-### Evaluation Script
-
-To evaluate the trained model on the test set:
+### Evaluation
 
 ```bash
 python src/evaluate.py
 ```
 
-This generates:
-- Classification report
-- Confusion matrix
-- ROC curves
-- Per-class performance metrics
-- Grad-CAM visualizations for sample predictions
+Outputs include:
+
+* Classification report
+* Confusion matrix
+* ROC curves
+* Class-wise metrics
+* Grad-CAM visualizations
 
 ---
 
-## 🏆 **Project Results**
+## Project Results
 
-This model achieves **state-of-the-art performance** on Alzheimer's disease classification:
+### Overall Performance
 
-### **Performance Metrics:**
-- ✅ **Test Accuracy:** 99.97% (6,599 correct out of 6,601 images)
-- ✅ **F1 Score:** 0.9997
-- ✅ **ROC-AUC:** 1.0000 (Perfect discrimination)
-- ✅ **MCC:** 0.9996
-- ✅ **Error Rate:** 0.03% (only 2 misclassifications)
+| Metric        | Value  |
+| ------------- | ------ |
+| Test Accuracy | 99.97% |
+| F1 Score      | 0.9997 |
+| ROC-AUC       | 1.0000 |
+| MCC           | 0.9996 |
+| Error Rate    | 0.03%  |
 
-### **Per-Class Performance:**
-| Class | Precision | Recall | F1-Score | Test Images |
-|-------|-----------|--------|----------|-------------|
-| Non Demented | 100.0% | 100.0% | 100.0% | 1,920 |
-| Very Mild Demented | 99.9% | 100.0% | 99.9% | 1,681 |
-| Mild Demented | 100.0% | 99.9% | 99.9% | 1,500 |
-| Moderate Demented | 100.0% | 100.0% | 100.0% | 1,500 |
+### Per-Class Performance
 
-### **Key Achievements:**
-- 🎯 Only 2 errors in 6,601 test images (both on augmented/edge cases)
-- 🧠 Model correctly identifies clinically relevant brain regions (hippocampus, ventricles)
-- ✅ Validated on external images (Google Images) with 100% confidence
-- 📊 Research-grade evaluation with confusion matrix, ROC curves, and Grad-CAM
+| Class              | Precision | Recall | F1 Score | Test Images |
+| ------------------ | --------- | ------ | -------- | ----------- |
+| Non Demented       | 100.0%    | 100.0% | 100.0%   | 1,920       |
+| Very Mild Demented | 99.9%     | 100.0% | 99.9%    | 1,681       |
+| Mild Demented      | 100.0%    | 99.9%  | 99.9%    | 1,500       |
+| Moderate Demented  | 100.0%    | 100.0% | 100.0%   | 1,500       |
 
-**Training Details:**
-- Dataset: 44,000 MRI images (30,800 train / 6,600 val / 6,601 test)
-- GPU: NVIDIA RTX 3050 (6GB VRAM)
-- Training Time: ~2.5 hours (30 epochs)
-- Best Model: Epoch 27
+### Training Details
 
----
-
-## ⚠️ Disclaimer
-
-**RESEARCH USE ONLY**
-
-NeuroVision AI is an experimental machine learning system developed for **research and educational purposes only**. 
-
-- ❌ **NOT a medical diagnostic tool**
-- ❌ **NOT approved for clinical use**
-- ❌ **NOT a substitute for professional medical evaluation**
-
-**Important Notes:**
-
-1. This system should **never** be used to make clinical decisions
-2. All diagnoses must be made by qualified healthcare professionals
-3. MRI interpretation requires extensive medical training and expertise
-4. Machine learning models can make errors and have biases
-5. Performance metrics are based on specific datasets and may not generalize
-
-**If you or someone you know is concerned about cognitive health, please consult a qualified healthcare provider.**
+* Dataset Size: 44,000 MRI images
+* Train Images: 30,800
+* Validation Images: 6,600
+* Test Images: 6,601
+* GPU: NVIDIA RTX 3050 (6GB)
+* Training Time: Approximately 2.5 hours
+* Best Model: Epoch 27
 
 ---
 
-## 🛠️ Troubleshooting
+## Disclaimer
 
-### Common Issues
+### Research Use Only
 
-**Issue**: `ModuleNotFoundError: No module named 'models'`
-- **Solution**: Make sure you're running scripts from the project root directory
+NeuroVision AI is intended solely for research and educational purposes.
 
-**Issue**: `FileNotFoundError: best_model.pth not found`
-- **Solution**: Train the model first using `python src/train.py` or download pre-trained weights
+It is:
 
-**Issue**: CUDA out of memory
-- **Solution**: Reduce `BATCH_SIZE` in `configs/config.py` (try 16 or 8)
+* Not a medical diagnostic tool
+* Not approved for clinical use
+* Not a replacement for professional medical evaluation
 
-**Issue**: Training is very slow
-- **Solution**: Make sure PyTorch is using GPU. Check with:
-  ```python
-  import torch
-  print(torch.cuda.is_available())  # Should be True
-  ```
+Important considerations:
 
----
-
-## 📝 License
-
-This project is for educational and research purposes. Please ensure you have appropriate permissions for any datasets used.
+1. Clinical decisions should never be based solely on this model.
+2. Diagnoses must be performed by qualified healthcare professionals.
+3. MRI interpretation requires medical expertise.
+4. Machine learning models can produce incorrect predictions.
+5. Results may not generalize to all patient populations.
 
 ---
 
-## 🙏 Acknowledgments
+## Troubleshooting
 
-- **PyTorch** - Deep learning framework
-- **Streamlit** - Web application framework
-- **ResNet** - He et al., "Deep Residual Learning for Image Recognition"
-- **Grad-CAM** - Selvaraju et al., "Grad-CAM: Visual Explanations from Deep Networks"
+### ModuleNotFoundError
+
+```text
+ModuleNotFoundError: No module named 'models'
+```
+
+**Solution:** Run scripts from the project root directory.
+
+### Missing Model File
+
+```text
+FileNotFoundError: best_model.pth not found
+```
+
+**Solution:** Download or train the model before inference.
+
+### CUDA Out of Memory
+
+Reduce batch size in `configs/config.py`.
+
+### Slow Training
+
+Verify GPU availability:
+
+```python
+import torch
+print(torch.cuda.is_available())
+```
+
+Expected output:
+
+```python
+True
+```
 
 ---
 
-For questions, issues, or contributions, please open an issue on the project repository.
+## License
+
+This project is intended for educational and research purposes. Ensure appropriate permissions for any datasets used.
 
 ---
 
-**Built with ❤️ for advancing Alzheimer's research through AI**
+## Acknowledgments
+
+* PyTorch
+* Streamlit
+* ResNet (He et al.)
+* Grad-CAM (Selvaraju et al.)
