@@ -1,4 +1,4 @@
-cmd# 🧠 NeuroVision AI
+NeuroVision AI
 
 **Deep Learning for Alzheimer's Disease Classification from Brain MRI Images**
 
