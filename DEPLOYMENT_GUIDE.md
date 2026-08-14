@@ -1,206 +1,234 @@
-# 🚀 Deployment Guide
+# Deployment Guide
 
-Complete guide for sharing your Alzheimer's AI project with the world.
+Complete guide for sharing your Alzheimer's AI project.
 
 ---
 
-## 📦 **Step 1: Upload Model to Google Drive**
+## Step 1: Upload Model to Google Drive
 
-### **Why Google Drive?**
-- ✅ Free (15GB storage)
-- ✅ Easy sharing
-- ✅ Reliable downloads
-- ✅ No GitHub file size limits
+### Why Google Drive?
 
-### **Instructions:**
+* Free (15 GB storage)
+* Easy sharing
+* Reliable downloads
+* No GitHub file-size limitations
 
-1. **Locate your trained model:**
-   ```
-   outputs/checkpoints/best_model.pth
-   ```
-   Size: ~100MB
+### Instructions
 
-2. **Upload to Google Drive:**
-   - Go to [Google Drive](https://drive.google.com)
-   - Click "New" → "File upload"
-   - Select `best_model.pth`
-   - Wait for upload to complete
+#### Locate Your Trained Model
 
-3. **Get shareable link:**
-   - Right-click on uploaded file
-   - Click "Share"
-   - Change access to "Anyone with the link"
-   - Copy link
-
-4. **Update README.md:**
-   - Replace `your-google-drive-link-here` with your link
-   - Save README.md
-
-**Your link will look like:**
+```text
+outputs/checkpoints/best_model.pth
 ```
+
+Approximate size: 100 MB
+
+#### Upload to Google Drive
+
+1. Open Google Drive.
+2. Click **New → File Upload**.
+3. Select `best_model.pth`.
+4. Wait for the upload to complete.
+
+#### Create a Shareable Link
+
+1. Right-click the uploaded file.
+2. Select **Share**.
+3. Change access to **Anyone with the link**.
+4. Copy the generated link.
+
+#### Update README.md
+
+Replace the placeholder model link with your Google Drive link.
+
+Example:
+
+```text
 https://drive.google.com/file/d/1ABC...XYZ/view?usp=sharing
 ```
 
 ---
 
-## 📁 **Step 2: Push Code to GitHub**
+## Step 2: Push Code to GitHub
 
-### **Create GitHub Repository:**
+### Create a Repository
 
-1. **Go to GitHub:**
-   - Visit [github.com](https://github.com)
-   - Click "+" → "New repository"
+1. Open GitHub.
+2. Click **+ → New Repository**.
 
-2. **Repository settings:**
-   - Name: `alzheimer-disease-classifier` (or your choice)
-   - Description: "Deep learning system for Alzheimer's classification (99.97% accuracy)"
-   - Public or Private
-   - Don't initialize with README (you have one)
+### Repository Settings
 
-3. **Push your code:**
-   ```bash
-   # In your project folder
-   cd c:\Users\vigne\Downloads\Alzheimer_prediction-main\Alzheimer_prediction-main
-   
-   # Initialize git
-   git init
-   
-   # Add all files (`.gitignore` excludes large files automatically)
-   git add .
-   
-   # Commit
-   git commit -m "Initial commit: Alzheimer's AI Classifier (99.97% accuracy)"
-   
-   # Add remote (replace with YOUR repo URL)
-   git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
-   
-   # Push to GitHub
-   git branch -M main
-   git push -u origin main
-   ```
+* Repository Name: `alzheimer-disease-classifier`
+* Description: Deep learning system for Alzheimer's disease classification
+* Visibility: Public or Private
+* Do not initialize with a README
 
-**What gets pushed:**
-- ✅ All Python code
-- ✅ README.md (with Google Drive link)
-- ✅ requirements.txt
-- ✅ Project structure
-- ❌ Model file (excluded by .gitignore)
-- ❌ Dataset (excluded by .gitignore)
-- ❌ Training outputs (excluded by .gitignore)
+### Push Your Project
 
----
-
-## 🌐 **Step 3: Deploy to Streamlit Cloud** (Optional)
-
-### **Why Deploy?**
-- Anyone can use your app via URL (no installation)
-- Free hosting for public repos
-- Automatic HTTPS
-- Easy updates (push to GitHub → auto-deploys)
-
-### **Instructions:**
-
-1. **Sign up for Streamlit Cloud:**
-   - Go to [share.streamlit.io](https://share.streamlit.io)
-   - Sign in with GitHub
-
-2. **Create new app:**
-   - Click "New app"
-   - Repository: Your GitHub repo
-   - Branch: main
-   - Main file path: `app/streamlit_app.py`
-   - App URL: Choose your subdomain
-
-3. **Add model to deployment:**
-   
-   **Option A: Upload via Streamlit (if <200MB total)**
-   - Streamlit allows larger apps
-   - Model auto-included if in repo
-
-   **Option B: Download from Google Drive in code**
-   Add to `app/streamlit_app.py`:
-   ```python
-   import gdown
-   import os
-   
-   MODEL_PATH = "outputs/checkpoints/best_model.pth"
-   GDRIVE_ID = "YOUR-FILE-ID-HERE"  # From your Google Drive link
-   
-   if not os.path.exists(MODEL_PATH):
-       st.info("Downloading model...")
-       gdown.download(f"https://drive.google.com/uc?id={GDRIVE_ID}", 
-                      MODEL_PATH, quiet=False)
-   ```
-   
-   Add to `requirements.txt`:
-   ```
-   gdown
-   ```
-
-4. **Deploy:**
-   - Click "Deploy"
-   - Wait 2-5 minutes
-   - Your app is live! 🎉
-
-5. **Get your URL:**
-   ```
-   https://your-app-name.streamlit.app
-   ```
-
-6. **Update README:**
-   Add to top of README.md:
-   ```markdown
-   ## 🌐 Live Demo
-   
-   Try the live app: [NeuroVision AI Demo](https://your-app.streamlit.app)
-   ```
-
----
-
-## 🎥 **Step 4: Create Demo Video** (Recommended)
-
-### **What to Record:**
-1. Opening the web app
-2. Uploading a test MRI image
-3. Showing prediction result
-4. Demonstrating Grad-CAM visualization
-5. Showing confidence scores
-
-### **Tools:**
-- **Windows:** Xbox Game Bar (Win+G)
-- **Chrome:** Loom extension
-- **Professional:** OBS Studio (free)
-
-### **Upload:**
-- YouTube (public or unlisted)
-- Add link to README
-
----
-
-## 📸 **Step 5: Add Screenshots to README**
-
-### **Take Screenshots:**
-1. Web app interface
-2. Prediction result
-3. Grad-CAM visualization
-4. Confusion matrix
-5. ROC curves
-
-### **Upload to GitHub:**
 ```bash
-# Create images folder
-mkdir docs/images
+# Navigate to project folder
+cd c:\Users\vigne\Downloads\Alzheimer_prediction-main\Alzheimer_prediction-main
 
-# Add screenshots
-# Then in README.md:
+# Initialize repository
+git init
+
+# Add files
+git add .
+
+# Commit changes
+git commit -m "Initial commit: Alzheimer's AI Classifier"
+
+# Add remote repository
+git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
+
+# Push to GitHub
+git branch -M main
+git push -u origin main
 ```
+
+### Files Included
+
+Included:
+
+* Source code
+* README.md
+* requirements.txt
+* Configuration files
+* Documentation
+
+Excluded:
+
+* Model checkpoints
+* Dataset files
+* Training outputs
+* Cache files
+
+---
+
+## Step 3: Deploy to Streamlit Cloud (Optional)
+
+### Benefits
+
+* Public web application
+* No installation required for users
+* Free hosting for public repositories
+* Automatic deployment updates
+
+### Deployment Steps
+
+#### Create a Streamlit Cloud Account
+
+1. Visit Streamlit Community Cloud.
+2. Sign in with GitHub.
+
+#### Create a New App
+
+* Repository: Your GitHub repository
+* Branch: `main`
+* Main file: `app/streamlit_app.py`
+
+#### Download Model Automatically
+
+Add the following code:
+
+```python
+import gdown
+import os
+
+MODEL_PATH = "outputs/checkpoints/best_model.pth"
+GDRIVE_ID = "YOUR_FILE_ID"
+
+if not os.path.exists(MODEL_PATH):
+    gdown.download(
+        f"https://drive.google.com/uc?id={GDRIVE_ID}",
+        MODEL_PATH,
+        quiet=False
+    )
+```
+
+Add to `requirements.txt`:
+
+```text
+gdown
+```
+
+#### Deploy
+
+1. Click **Deploy**.
+2. Wait a few minutes.
+3. Your application becomes available through a public URL.
+
+Example:
+
+```text
+https://your-app-name.streamlit.app
+```
+
+### Update README
+
+Add a live demo section:
+
 ```markdown
-## 📸 Screenshots
+## Live Demo
 
-### Web Application
-![App Interface](docs/images/app-interface.png)
+Try the application here:
 
-### Prediction Result
+https://your-app-name.streamlit.app
+```
+
+---
+
+## Step 4: Create a Demo Video (Recommended)
+
+### Suggested Content
+
+1. Open the application.
+2. Upload an MRI image.
+3. Display prediction results.
+4. Demonstrate Grad-CAM visualization.
+5. Show confidence scores.
+
+### Recording Tools
+
+* Xbox Game Bar (Windows)
+* Loom
+* OBS Studio
+
+### Hosting
+
+* YouTube
+* Google Drive
+* Vimeo
+
+Add the video link to your README.
+
+---
+
+## Step 5: Add Screenshots
+
+### Recommended Screenshots
+
+* Application homepage
+* Prediction page
+* Grad-CAM visualization
+* Confusion matrix
+* ROC curve
+
+### Organize Images
+
+```bash
+mkdir docs/images
+```
+
+### README Example
+
+```markdown
+## Screenshots
+
+### Application Interface
+![Interface](docs/images/app-interface.png)
+
+### Prediction Results
 ![Prediction](docs/images/prediction.png)
 
 ### Grad-CAM Visualization
@@ -209,127 +237,131 @@ mkdir docs/images
 
 ---
 
-## ✅ **Final Checklist**
+## Final Checklist
 
-Before sharing your project:
-
-- [ ] Model uploaded to Google Drive
-- [ ] Google Drive link added to README
-- [ ] Code pushed to GitHub
-- [ ] `.gitignore` excludes large files
-- [ ] README has clear instructions
-- [ ] requirements.txt is complete
-- [ ] (Optional) App deployed to Streamlit Cloud
-- [ ] (Optional) Demo video recorded
-- [ ] (Optional) Screenshots added to README
+* [ ] Upload model to Google Drive
+* [ ] Add model link to README
+* [ ] Push project to GitHub
+* [ ] Verify `.gitignore`
+* [ ] Verify installation instructions
+* [ ] Verify requirements.txt
+* [ ] Deploy application (optional)
+* [ ] Record demo video (optional)
+* [ ] Add screenshots (optional)
 
 ---
 
-## 📝 **What People Can Do With Your Repo**
+## What Users Can Do
 
-### **Scenario 1: View Your Work (Everyone)**
-- Browse code on GitHub
-- Read README and see results
-- Watch demo video
-- Understand your approach
+### Explore the Repository
 
-### **Scenario 2: Try Your App (Everyone)**
-- Visit your Streamlit Cloud URL
-- Upload images and get predictions
-- No installation needed!
+* Review source code
+* Read documentation
+* Understand implementation details
 
-### **Scenario 3: Run Locally (Developers)**
-1. Clone your GitHub repo
-2. Download model from Google Drive
-3. Install dependencies: `pip install -r requirements.txt`
-4. Run: `py -3.12 -m streamlit run app/streamlit_app.py`
-5. Opens on their computer (localhost:8501)
+### Use the Application
 
-### **Scenario 4: Retrain Model (ML Engineers)**
-1. Clone repo
-2. Get dataset
-3. Run: `py -3.12 -m src.train`
-4. Train their own model
+* Access deployed Streamlit app
+* Upload MRI scans
+* View predictions and Grad-CAM outputs
 
----
-
-## 🎯 **Use Cases**
-
-### **For Job Applications:**
-```
-Portfolio: github.com/username/alzheimer-ai
-Live Demo: your-app.streamlit.app
-Video: youtube.com/watch?v=...
-
-"Built AI system achieving 99.97% accuracy on Alzheimer's 
-classification. Deployed production-ready web application."
-```
-
-### **For Learning:**
-- Others can study your code
-- Reproduce your results
-- Learn from your approach
-- Build upon your work
-
-### **For Collaboration:**
-- Others can fork and improve
-- Submit pull requests
-- Report issues
-- Suggest enhancements
-
----
-
-## 💡 **Pro Tips**
-
-1. **README is crucial:** Most people only read README
-2. **Live demo matters:** Show, don't just tell
-3. **Clear instructions:** Assume beginner knowledge
-4. **Screenshots help:** Visual > Text
-5. **Results upfront:** Show 99.97% accuracy prominently
-6. **License:** Add MIT or Apache 2.0 license
-7. **Citations:** Credit datasets and libraries used
-8. **Star your repo:** Adds credibility (10+ stars = serious)
-
----
-
-## 🌟 **Example README Header** (Copy This)
-
-```markdown
-# 🧠 NeuroVision AI - Alzheimer's Disease Classifier
-
-Deep learning system achieving **99.97% accuracy** on Alzheimer's disease classification from brain MRI scans.
-
-[![Python](https://img.shields.io/badge/Python-3.12-blue)]()
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.5-red)]()
-[![Accuracy](https://img.shields.io/badge/Accuracy-99.97%25-brightgreen)]()
-[![License](https://img.shields.io/badge/License-MIT-yellow)]()
-
-🌐 [**Live Demo**](https://your-app.streamlit.app) | 
-📥 [**Download Model**](https://drive.google.com/...) |
-🎥 [**Video**](https://youtube.com/...)
-
-## ⚡ Quick Start
+### Run Locally
 
 ```bash
-# Clone and setup
-git clone https://github.com/username/repo.git
-cd repo
+git clone https://github.com/username/repository.git
+cd repository
+
 pip install -r requirements.txt
 
-# Download model (100MB)
-# Place in outputs/checkpoints/best_model.pth
-
-# Run app
 streamlit run app/streamlit_app.py
 ```
 
-## 🏆 Results
-- 99.97% Test Accuracy (6,599/6,601 correct)
-- 100% accuracy on Non Demented and Moderate Demented
-- Only 2 errors on 6,601 test images
-- Validated on external datasets
+### Train Their Own Model
+
+```bash
+py -3.12 -m src.train
 ```
 
 ---
 
-**Your project is ready to share! Good luck! 🚀**
+## Use Cases
+
+### Portfolio Projects
+
+```text
+GitHub: github.com/username/alzheimer-ai
+Live Demo: your-app.streamlit.app
+
+Built an Alzheimer's disease classification system
+using deep learning and explainable AI techniques.
+```
+
+### Educational Use
+
+* Learn medical image classification
+* Explore transfer learning
+* Understand Grad-CAM explainability
+
+### Collaboration
+
+* Fork repository
+* Submit pull requests
+* Report issues
+* Propose improvements
+
+---
+
+## Best Practices
+
+1. Keep the README concise and clear.
+2. Provide a live demo when possible.
+3. Include screenshots.
+4. Highlight key results early.
+5. Add a software license.
+6. Cite datasets and external resources.
+7. Keep dependencies updated.
+8. Document deployment steps clearly.
+
+---
+
+## Example README Header
+
+````markdown
+# NeuroVision AI - Alzheimer's Disease Classifier
+
+Deep learning system for Alzheimer's disease classification from brain MRI scans.
+
+[![Python](https://img.shields.io/badge/Python-3.12-blue)]()
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.5-red)]()
+[![License](https://img.shields.io/badge/License-MIT-yellow)]()
+
+## Live Demo
+
+https://your-app.streamlit.app
+
+## Download Model
+
+https://drive.google.com/...
+
+## Quick Start
+
+```bash
+git clone https://github.com/username/repository.git
+cd repository
+
+pip install -r requirements.txt
+
+streamlit run app/streamlit_app.py
+```
+
+## Results
+
+- 99.97% Test Accuracy
+- 0.9997 F1 Score
+- 1.0000 ROC-AUC
+- Only 2 misclassifications on the test set
+````
+
+---
+
+Your project is ready to be shared through GitHub, Streamlit Cloud, and portfolio platforms.
