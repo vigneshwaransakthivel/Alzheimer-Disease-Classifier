@@ -469,13 +469,6 @@ This project is for educational and research purposes. Please ensure you have ap
 
 ---
 
-## 👤 Author
-
-**CP**  
-Project: NeuroVision AI
-
----
-
 ## 🙏 Acknowledgments
 
 - **PyTorch** - Deep learning framework
@@ -484,8 +477,6 @@ Project: NeuroVision AI
 - **Grad-CAM** - Selvaraju et al., "Grad-CAM: Visual Explanations from Deep Networks"
 
 ---
-
-## 📞 Support
 
 For questions, issues, or contributions, please open an issue on the project repository.
 
